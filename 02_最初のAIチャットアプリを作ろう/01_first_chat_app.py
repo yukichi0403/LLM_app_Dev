@@ -16,8 +16,8 @@ if "messages" not in st.session_state:
 if user_input := st.chat_input("聞きたいことを入力してね！"):
     st.session_state.messages.append(HumanMessage(content=user_input))
     with st.spinner("ChatGPT is typing..."):
-        response = llm(st.session_state.messages)
-    st.session_state.messages.append(AIMessage(content=response.content))
+        response = llm.invoke(st.session_state.messages)
+        st.session_state.messages.append(AIMessage(content=response.content))
 
 
 messages = st.session_state.get("messages",[])
@@ -30,3 +30,4 @@ for message in messages:
             st.markdown(message.content)
     else:
         st.write(f"System message: {message.content}")
+# print(st.session_state.messages)
